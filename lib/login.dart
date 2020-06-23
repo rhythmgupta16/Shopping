@@ -10,6 +10,8 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
+
+
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   TextEditingController emailInputController;
@@ -102,7 +104,15 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       Navigator.pushNamed(context, "/register");
                     },
-                  )
+                  ),
+                  RaisedButton(
+                    child: Text("OTP Authentication"),
+                    color: Theme.of(context).primaryColor,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/phone');
+                    },
+                  ),
                 ],
               ),
             ))));

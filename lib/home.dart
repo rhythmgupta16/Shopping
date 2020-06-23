@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title, this.uid}) : super(key: key); //update this to include the uid in the constructor
+  HomePage({Key key, this.title, this.uid, FirebaseUser user}) : super(key: key); //update this to include the uid in the constructor
   final String title;
   final String uid; //include this
 

@@ -3,6 +3,7 @@ import 'register.dart';
 import 'splash.dart';
 import 'login.dart';
 import 'home.dart';
+import 'phone.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
           '/home': (BuildContext context) => HomePage(title: 'Home'),
           '/login': (BuildContext context) => LoginPage(),
           '/register': (BuildContext context) => RegisterPage(),
+          '/phone' : (BuildContext context) => PhonePage(),
         });
   }
 }

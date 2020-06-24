@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shopping/home.dart';
 import 'package:shopping/googleSignIn.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -17,6 +19,12 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   TextEditingController emailInputController;
   TextEditingController pwdInputController;
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final FacebookLogin fbLogin = new FacebookLogin();
+  bool isFacebookLoginIn = false;
+  String errorMessage = '';
+  String successMessage = '';
 
   @override
   initState() {
@@ -90,8 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => HomePage(
-                                                  title: result["fname"] +
-                                                      "'s Shop",
+                                                  title: "Home",
                                                   uid: currentUser.uid,
                                                 ))))
                                 .catchError((err) => print(err)))
@@ -145,8 +152,68 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
+
+                  RaisedButton(
+                    child: Text('Facebook Login'),
+                    color: Theme.of(context).primaryColor,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      facebookLogin(context).then((user) {
+                        if (user != null) {
+                          print('Logged in successfully.');
+                          Navigator.pushNamed(context, '/home');
+                          isFacebookLoginIn = true;
+                      } else {
+                        print('Error while Login.');
+                      }
+                    });
+                  },
+                )
+              
+
                 ],
               ),
             ))));
   }
+
+Future<FirebaseUser> facebookLogin(BuildContext context) async {
+    FirebaseUser currentUser;
+    //fbLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
+    // if you remove above comment then facebook login will take username and pasword for login in Webview
+    try {
+      final FacebookLoginResult facebookLoginResult =
+          await fbLogin.logInWithReadPermissions(['email', 'public_profile']);
+      if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
+        FacebookAccessToken facebookAccessToken =
+            facebookLoginResult.accessToken;
+        final AuthCredential credential = FacebookAuthProvider.getCredential(
+            accessToken: facebookAccessToken.token);
+        final FirebaseUser user = await auth.signInWithCredential(credential);
+        assert(user.email != null);
+        assert(user.displayName != null);
+        assert(!user.isAnonymous);
+        assert(await user.getIdToken() != null);
+        currentUser = await auth.currentUser();
+        assert(user.uid == currentUser.uid);
+        Firestore.instance.collection("users").document(user.uid).setData({
+                "uid": user.uid,
+                "fname": "facebook",
+                "surname": "not set",
+                "email":"not set",
+              }).then((_){
+                  print("facebook user added success!");});
+        return currentUser;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return currentUser;
+  }
+
+  Future<bool> facebookLoginout() async {
+    await auth.signOut();
+    await fbLogin.logOut();
+    return true;
+  }
+  
 }

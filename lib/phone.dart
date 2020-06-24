@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -73,10 +74,19 @@ class _MyAppPageState extends State<PhonePage> {
                     FlatButton(    
                     child: Text('Done'),    
                     onPressed: () {    
-                        _auth.currentUser().then((user) {    
+                        _auth.currentUser().then((user)  {    
                         if (user != null) {    
+
+                            // Firestore.instance.collection("users").document(user.uid).setData({
+                            //     "uid": user.uid,
+                            //     "fname": "not set",
+                            //     "surname": "not set",
+                            //     "email":"not set",
+                            //     }).then((_){
+                            //   print("success!");});
+                            
                             Navigator.of(context).pop();    
-                            Navigator.of(context).pushReplacementNamed('/home');    
+                            Navigator.of(context).pushReplacementNamed('/home'); 
                         } else {    
                             signIn();    
                         }    
@@ -96,7 +106,7 @@ class _MyAppPageState extends State<PhonePage> {
             );    
             final FirebaseUser user = await _auth.signInWithCredential(credential);    
             final FirebaseUser currentUser = await _auth.currentUser();    
-            assert(user.uid == currentUser.uid);    
+            assert(user.uid == currentUser.uid);   
             Navigator.of(context).pop();    
             Navigator.of(context).pushReplacementNamed('/home');    
         } catch (e) {    

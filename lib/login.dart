@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shopping/home.dart';
+import 'package:shopping/googleSignIn.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -112,6 +113,37 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       Navigator.pushNamed(context, '/phone');
                     },
+                  ),
+                  OutlineButton(
+                    splashColor: Colors.grey,
+                    onPressed: () {
+                      signInWithGoogle().whenComplete(() {
+                        Navigator.pushNamed(context, '/home');
+                      });
+                      },
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+                    highlightElevation: 0,
+                    borderSide: BorderSide(color: Colors.grey),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        //Image(image: AssetImage("assets/google_logo.png"), height: 35.0),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            'Sign in with Google',
+                          style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.grey,
+                        ),
+                        ),
+                        )
+                      ],
+                      ),
+                    ),
                   ),
                 ],
               ),

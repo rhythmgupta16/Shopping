@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shopping/googleSignIn.dart';
+
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title, this.uid, FirebaseUser user}) : super(key: key); //update this to include the uid in the constructor
@@ -43,15 +45,44 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: Center(
-        child: Container(
-            padding: const EdgeInsets.all(20.0),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [Colors.blue[100], Colors.blue[400]],
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              RaisedButton(
+                onPressed: () {
+                  signOutGoogle();
+                  Navigator.pushReplacementNamed(context, "/login")
+                  .catchError((err) => print(err));
+                    
+                },
+                color: Colors.deepPurple,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Sign Out',
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ),
+                ),
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40)),
+              )
+            ],
             
              
-            )),
-      
-
+            ),
+         ),
+        ),
     );
   }
-  
 }

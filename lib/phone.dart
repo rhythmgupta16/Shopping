@@ -77,13 +77,7 @@ class _MyAppPageState extends State<PhonePage> {
                         _auth.currentUser().then((user)  {    
                         if (user != null) {    
 
-                            // Firestore.instance.collection("users").document(user.uid).setData({
-                            //     "uid": user.uid,
-                            //     "fname": "not set",
-                            //     "surname": "not set",
-                            //     "email":"not set",
-                            //     }).then((_){
-                            //   print("success!");});
+
                             
                             Navigator.of(context).pop();    
                             Navigator.of(context).pushReplacementNamed('/home'); 
@@ -107,6 +101,13 @@ class _MyAppPageState extends State<PhonePage> {
             final FirebaseUser user = await _auth.signInWithCredential(credential);    
             final FirebaseUser currentUser = await _auth.currentUser();    
             assert(user.uid == currentUser.uid);   
+            Firestore.instance.collection("users").document(user.uid).setData({
+                "uid": user.uid,
+                "fname": "not set",
+                "surname": "not set",
+                "email":"not set",
+              }).then((_){
+                  print("success!");});
             Navigator.of(context).pop();    
             Navigator.of(context).pushReplacementNamed('/home');    
         } catch (e) {    

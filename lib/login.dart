@@ -53,9 +53,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        
-        
+    return Scaffold(        
         body: Container(
             //padding: const EdgeInsets.all(20.0),
             child: SingleChildScrollView(
@@ -63,27 +61,28 @@ class _LoginPageState extends State<LoginPage> {
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                 gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xffFBB034), Color(0xffF8B313)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xffFBB034), Color(0xffF8B313)],
                 ),
               ),
               child: Form(
               key: _loginFormKey,
               child: Column(
                 children: <Widget>[
-                 AppBar(
+                 AppBar(             
                   backgroundColor: Colors.transparent,
                   elevation: 0,
                   title: Text(
-                    "LOGIN", style: TextStyle(fontWeight: FontWeight.bold),),
+                    "LOGIN", style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   centerTitle: true,
-                  leading: Icon(Icons.arrow_back),
+                  //leading: Icon(Icons.arrow_back),
                   // Actions are identified as buttons which are added at the right of App Bar
                   actions: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      //child: Image.asset('assets/logo.png'),
+                      child: Image.asset('assets/logo.png'),
                       )
                     ],
                   ),

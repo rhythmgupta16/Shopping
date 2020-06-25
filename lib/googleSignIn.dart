@@ -41,16 +41,29 @@ Future<String> signInWithGoogle() async {
 
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
-  Firestore.instance.collection("users").document(user.uid).setData({
-                "uid": user.uid,
-                "fname": "google",
-                "surname": "not set",
-                "email":"not set",
-              }).then((_){
-                  print("google database success!");});
 
-  return 'signInWithGoogle succeeded: $user';
+  Firestore.instance.collection("users").document(user.uid)
+  .get()
+  .then((doc) => {
+    if (doc.exists) {
+      //console.log("Document data:", doc.data());
+    } else {
+      // doc.data() will be undefined in this case
+      Firestore.instance.collection("users").document(user.uid).setData({
+                "uid": user.uid,
+                "fname": "Update in Edit Profile",
+                "surname": "Update in Edit Profile",
+                "email":"Update in Edit Profile",
+                "phone" :"Update in Edit Profile",
+              }).then((_){
+                  print("google database success!");
+                  // return 'signInWithGoogle succeeded: $user';
+                  })
+      
+  }}
+  );
 }
+ 
 
 void signOutGoogle() async {
   await googleSignIn.signOut();

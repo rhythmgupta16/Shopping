@@ -1,30 +1,29 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shopping/home.dart';
 
-class RegisterPage extends StatefulWidget {
-  RegisterPage({Key key}) : super(key: key);
+class EditProfilePage extends StatefulWidget {
+  EditProfilePage({Key key}) : super(key: key);
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  _EditProfilePageState createState() => _EditProfilePageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _EditProfilePageState extends State<EditProfilePage> {
   final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
   TextEditingController firstNameInputController;
   TextEditingController lastNameInputController;
   TextEditingController emailInputController;
-  TextEditingController pwdInputController;
-  TextEditingController confirmPwdInputController;
+  TextEditingController phoneInputController;
+
+    final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   initState() {
     firstNameInputController = new TextEditingController();
     lastNameInputController = new TextEditingController();
     emailInputController = new TextEditingController();
-    pwdInputController = new TextEditingController();
-    confirmPwdInputController = new TextEditingController();
+    phoneInputController = new TextEditingController();
     super.initState();
   }
 
@@ -39,13 +38,37 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  String pwdValidator(String value) {
-    if (value.length < 8) {
-      return 'Password must be longer than 8 characters';
+  String phoneValidator(String value) {
+    if (value.length < 13) {
+      return 'Phone must be longer than 10 digits';
     } else {
       return null;
     }
   }
+
+  void inputData() async {
+        final FirebaseUser user = await auth.currentUser();
+        Firestore.instance
+        .collection("users")
+        .document(user.uid)
+        .updateData({
+            "uid": user.uid,
+            "fname": firstNameInputController.text,
+            "surname": lastNameInputController.text,
+            "email": emailInputController.text,
+            "phone" : phoneInputController.text,
+        })
+      .then((result) => {
+        Navigator.pop(context),
+        firstNameInputController.clear(),
+        lastNameInputController.clear(),
+        emailInputController.clear(),
+        phoneInputController.clear(),
+      })
+      .catchError((err) => print(err))
+      .catchError((err) => print(err));
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +93,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     backgroundColor: Colors.transparent,
                     elevation: 0,
                     title: Text(
-                      "REGISTER", style: TextStyle(fontWeight: FontWeight.bold),
+                      "EDIT PROFILE", style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     centerTitle: true,
                     leading: new IconButton(
@@ -156,26 +179,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         padding: const EdgeInsets.all(18.0),
                         child: TextFormField(
                             decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.lock),
-                              labelText: 'Password',
-                              suffixIcon: Icon(Icons.remove_red_eye),
+                              prefixIcon: Icon(Icons.phone),
+                              labelText: 'Phone',
                             ),
-                            controller: pwdInputController,
-                            obscureText: true,
-                            validator: pwdValidator,
-                            ),
-                        ),
-                        Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: TextFormField(
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.lock),
-                              labelText: 'Confirm Password',
-                              suffixIcon: Icon(Icons.remove_red_eye),
-                            ),
-                            controller: confirmPwdInputController,
-                            obscureText: true,
-                            validator: pwdValidator,
+                            controller: phoneInputController,
+                            validator: phoneValidator,
                             ),
                         ),
                         Padding(
@@ -197,58 +205,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           
                           onPressed: () {
                             if (_registerFormKey.currentState.validate()) {
-                              if (pwdInputController.text ==
-                                  confirmPwdInputController.text) {
-                                FirebaseAuth.instance
-                                    .createUserWithEmailAndPassword(
-                                        email: emailInputController.text,
-                                        password: pwdInputController.text)
-                                    .then((currentUser) => Firestore.instance
-                                        .collection("users")
-                                        .document(currentUser.uid)
-                                        .setData({
-                                          "uid": currentUser.uid,
-                                          "fname": firstNameInputController.text,
-                                          "surname": lastNameInputController.text,
-                                          "email": emailInputController.text,
-                                          "phone" :"Update in Edit Profile",
-                                        })
-                                        .then((result) => {
-                                              Navigator.pushAndRemoveUntil(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) => HomePage(
-                                                            title:
-                                                              "Home",
-                                                            uid: currentUser.uid,
-                                                          )),
-                                                  (_) => false),
-                                              firstNameInputController.clear(),
-                                              lastNameInputController.clear(),
-                                              emailInputController.clear(),
-                                              pwdInputController.clear(),
-                                              confirmPwdInputController.clear()
-                                            })
-                                        .catchError((err) => print(err)))
-                                    .catchError((err) => print(err));
-                              } else {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text("Error"),
-                                        content: Text("The passwords do not match"),
-                                        actions: <Widget>[
-                                          FlatButton(
-                                            child: Text("Close"),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          )
-                                        ],
-                                      );
-                                    });
-                              }
+
+                              inputData();
+                             
+                              
                             }
                           },
                         ),
@@ -261,29 +221,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                          
 
-                  Container(
-                        margin: EdgeInsets.only(top: 20),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: RichText( 
-                            text: TextSpan(
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,),
-                              text: 'Already have an account? ',
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: 'Click Here to login!',
-                                  style: TextStyle(
-                                    decoration: TextDecoration.underline,),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+
 
                 ],
               ),

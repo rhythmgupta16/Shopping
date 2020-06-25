@@ -377,13 +377,25 @@ Future<FirebaseUser> facebookLogin(BuildContext context) async {
         assert(await user.getIdToken() != null);
         currentUser = await auth.currentUser();
         assert(user.uid == currentUser.uid);
-        Firestore.instance.collection("users").document(user.uid).setData({
-                "uid": user.uid,
-                "fname": "facebook",
-                "surname": "not set",
-                "email":"not set",
-              }).then((_){
-                  print("facebook user added success!");});
+        Firestore.instance.collection("users").document(user.uid)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              //console.log("Document data:", doc.data());
+            } else {
+              // doc.data() will be undefined in this case
+              Firestore.instance.collection("users").document(user.uid).setData({
+                        "uid": user.uid,
+                        "fname": "Update in Edit Profile",
+                        "surname": "Update in Edit Profile",
+                        "email":"Update in Edit Profile",
+                      }).then((_){
+                          print("facebook database success!");
+                          // return 'signInWithGoogle succeeded: $user';
+                          })
+              
+          }}
+          );
         return currentUser;
       }
     } catch (e) {

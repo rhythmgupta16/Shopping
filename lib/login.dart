@@ -411,26 +411,84 @@ Future<FirebaseUser> facebookLogin(BuildContext context) async {
   }
 
   Future<bool> _onBackPressed() {
+   
   return showDialog(
-    context: context,
-    builder: (context) => new AlertDialog(
-      title: new Text('Are you sure?'),
-      content: new Text('Do you want to exit an App'),
-      actions: <Widget>[
-        new GestureDetector(
-          onTap: () => Navigator.of(context).pop(false),
-          child: Text("NO"),
-        ),
-        SizedBox(height: 16),
-        new GestureDetector(
-          onTap: () => Navigator.of(context).pop(true),
-          child: Text("YES"),
-        ),
-      ],
-    ),
-  ) ??
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(25.0)), //this right here
+            child: Container(
+              height: 220,
+              child: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child:
+                        TextField(
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Are you sure you want to exit?'),
+                      ),
+                    ),
+                    Row(
+                    children: <Widget>[
+                      Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: 
+                    SizedBox(
+                      width: 100.0,
+                      child: RaisedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(false);
+                        },
+                        child: Text(
+                          "No",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: const Color(0xFFFBB034),
+                      ),
+                    ),
+                      ),
+                      Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child:
+                    SizedBox(
+                      width: 100.0,
+                      child: RaisedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(true);
+                        },
+                        child: Text(
+                          "Yes",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: const Color(0xFFFBB034),
+                      ),
+                    ),
+                      ),
+                    ]
+                      
+                    ),
+                    
+
+                  ],
+                ),
+              ),
+            ),
+          );
+        })??
       false;
 }
+
+
+
+
   
 }
 

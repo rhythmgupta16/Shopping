@@ -55,49 +55,98 @@ class _MyAppPageState extends State<PhonePage> {
     }    
     
     Future<bool> smsOTPDialog(BuildContext context) {    
-        return showDialog(    
-            context: context,    
-            barrierDismissible: false,    
-            builder: (BuildContext context) {    
-                return new AlertDialog(    
-                title: Text('Enter SMS Code'),    
-                content: Container(    
+
+  return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(25.0)), //this right here
+            child: Container(
+              height: 400,
+              child: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child:
+                        Text(
+                              'Enter SMS Code',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                              
+                      ),
+                    ),
+
+                      Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: 
+                      Container(    
                     height: 85,    
                     child: Column(children: [    
-                    TextField(    
-                        onChanged: (value) {    
-                        this.smsOTP = value;    
-                        },    
-                    ),    
-                    (errorMessage != ''    
-                        ? Text(    
-                            errorMessage,    
-                            style: TextStyle(color: Colors.red),    
-                            )    
-                        : Container())    
-                    ]),    
-                ),    
-                contentPadding: EdgeInsets.all(10),    
-                actions: <Widget>[    
-                    FlatButton(    
-                    child: Text('Done'),    
-                    onPressed: () {    
+                          TextField(    
+                              onChanged: (value) {    
+                              this.smsOTP = value;    
+                              },    
+                          ),    
+                          (errorMessage != ''    
+                              ? Text(    
+                                  errorMessage,    
+                                  style: TextStyle(color: Colors.red),    
+                                  )    
+                              : Container())    
+                          ]),    
+                      ),    
+
+
+                    ),
+                   Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: 
+                    SizedBox(
+                      width: 150.0,
+                      child: RaisedButton(
+                        onPressed: () {
                         _auth.currentUser().then((user)  {    
                         if (user != null) {    
-
-
-                            
+      
                             Navigator.of(context).pop();    
                             Navigator.of(context).pushReplacementNamed('/home'); 
                         } else {    
                             signIn();    
                         }    
-                        });    
-                    },    
-                    )    
-                ],    
-                );    
-        });    
+                        }); 
+                        },
+                        child: Text(
+                          "Done",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            ),
+                        ),
+                        color: const Color(0xFFFBB034),
+                      ),
+                    ),
+
+                    ),
+                    
+
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+
+
+
     }    
     
     signIn() async {    

@@ -53,7 +53,10 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(        
+     
+    return WillPopScope(
+    onWillPop: _onBackPressed,
+    child: new Scaffold(        
         body: Container(
             //padding: const EdgeInsets.all(20.0),
             child: SingleChildScrollView(
@@ -77,7 +80,12 @@ class _LoginPageState extends State<LoginPage> {
                     "LOGIN", style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   centerTitle: true,
-                  //leading: Icon(Icons.arrow_back),
+                  leading: new IconButton(
+                    icon: new Icon(Icons.arrow_back),
+                    onPressed: () {
+                      _onBackPressed();
+                      },
+                    ),
                   // Actions are identified as buttons which are added at the right of App Bar
                   actions: <Widget>[
                     Padding(
@@ -160,6 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                         margin: EdgeInsets.only(top: 20),
                         child: InkWell(
                           onTap: () {
+                            
                             Navigator.pushNamed(context, '/phone');
                           },
                           child: RichText( // RichText is used to styling a particular text span in a text by grouping them in one widget
@@ -342,6 +351,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     ),
+  ),
   );
 }
     
@@ -387,6 +397,28 @@ Future<FirebaseUser> facebookLogin(BuildContext context) async {
     await fbLogin.logOut();
     return true;
   }
+
+  Future<bool> _onBackPressed() {
+  return showDialog(
+    context: context,
+    builder: (context) => new AlertDialog(
+      title: new Text('Are you sure?'),
+      content: new Text('Do you want to exit an App'),
+      actions: <Widget>[
+        new GestureDetector(
+          onTap: () => Navigator.of(context).pop(false),
+          child: Text("NO"),
+        ),
+        SizedBox(height: 16),
+        new GestureDetector(
+          onTap: () => Navigator.of(context).pop(true),
+          child: Text("YES"),
+        ),
+      ],
+    ),
+  ) ??
+      false;
+}
   
 }
 

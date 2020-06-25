@@ -73,7 +73,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       "REGISTER", style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     centerTitle: true,
-                    //leading: Icon(Icons.arrow_back),
+                    leading: new IconButton(
+                    icon: new Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.of(context).pop();    
+                      //Navigator.of(context).pushNamed('/login');
+                      },
+                    ),
                     // Actions are identified as buttons which are added at the right of App Bar
                     actions: <Widget>[
                       Padding(

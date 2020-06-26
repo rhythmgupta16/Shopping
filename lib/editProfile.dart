@@ -81,255 +81,259 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            //padding: const EdgeInsets.all(20.0),
-            child: SingleChildScrollView(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-                decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0xffFBB034), Color(0xffF8B313)],
-                ),
-              ),
-              child: Form(
-                key: _registerFormKey,
-                child: Column(
-                  children: <Widget>[
-                  AppBar(             
-                    backgroundColor: Colors.transparent,
-                    elevation: 0,
-                    title: Text(
-                      "EDIT PROFILE", style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    centerTitle: true,
-                    leading: new IconButton(
-                    icon: new Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.of(context).pop();    
-                      //Navigator.of(context).pushNamed('/login');
-                      },
+        body: ListView(
+          children: <Widget>[
+            Container(
+                //padding: const EdgeInsets.all(20.0),
+                child: SingleChildScrollView(
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                    decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0xffFBB034), Color(0xffF8B313)],
                     ),
-                    // Actions are identified as buttons which are added at the right of App Bar
-                    actions: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('assets/logo.png'),
-                        )
-                      ],
-                    ),
-                    Container(
-                      width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
-                      padding: EdgeInsets.only(top: 40, bottom: 30),
-                      margin: EdgeInsets.only(top: 30, left: 20, right: 20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black,
-                              offset: Offset(1, 2),
-                              spreadRadius: 1.0,
-                              blurRadius: 5.0)
-                            ],
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(
+                  ),
+                  child: Form(
+                    key: _registerFormKey,
+                    child: Column(
                       children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(1.0),
-                        child: Text('Selected Image'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: Column(
-                        children: <Widget>[
-                          _image != null    
-                              ? Image.asset(    
-                                  _image.path,    
-                                  height: 60,    
-                                )    
-                              : Container(height: 60),    
-                          _image == null    
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ButtonTheme(
-                                    minWidth: 100.0,
-                                    height: 30.0,
-                                    child: RaisedButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                    
+                      AppBar(             
+                        backgroundColor: Colors.transparent,
+                        elevation: 0,
+                        title: Text(
+                          "EDIT PROFILE", style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        centerTitle: true,
+                        leading: new IconButton(
+                        icon: new Icon(Icons.arrow_back),
+                        onPressed: () {
+                          Navigator.of(context).pop();    
+                          //Navigator.of(context).pushNamed('/login');
+                          },
+                        ),
+                        // Actions are identified as buttons which are added at the right of App Bar
+                        actions: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset('assets/logo.png'),
+                            )
+                          ],
+                        ),
+                        Container(
+                          width: MediaQuery
+                            .of(context)
+                            .size
+                            .width,
+                          padding: EdgeInsets.only(top: 40, bottom: 30),
+                          margin: EdgeInsets.only(top: 30, left: 20, right: 20),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black,
+                                  offset: Offset(1, 2),
+                                  spreadRadius: 1.0,
+                                  blurRadius: 5.0)
+                                ],
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                          children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(1.0),
+                            child: Text('Selected Image'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: Column(
+                            children: <Widget>[
+                              _image != null    
+                                  ? Image.asset(    
+                                      _image.path,    
+                                      height: 60,    
+                                    )    
+                                  : Container(height: 60),    
+                              _image == null    
+                                ? Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ButtonTheme(
+                                        minWidth: 100.0,
+                                        height: 30.0,
+                                        child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18.0),
+                                        
 
-                                    ),
-                                  child: Text("Choose File",
-                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold )
-                                    ),
-                                  color: Color(0xffFBB034),
-                                  textColor: Colors.white,
-                                  
-                                  onPressed: () {
-                                    setState(() {
-                                      chooseFile();
-                                    });
-                                    } 
-                                    ),  
-                                    )
-                             ) : Container(),    
-                          // _image != null    
-                          //     ? RaisedButton(    
-                          //         child: Text('Upload File'),    
-                          //         onPressed: uploadFile,    
-                          //         color: Colors.cyan,    
-                          //       )    
-                          //     : Container(),    
-                          _image != null    
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ButtonTheme(
-                                    minWidth: 100.0,
-                                    height: 30.0,
-                                    child: RaisedButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
+                                        ),
+                                      child: Text("Choose File",
+                                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold )
+                                        ),
+                                      color: Color(0xffFBB034),
+                                      textColor: Colors.white,
+                                      
+                                      onPressed: () {
+                                        setState(() {
+                                          chooseFile();
+                                        });
+                                        } 
+                                        ),  
+                                        )
+                                 ) : Container(),    
+                              // _image != null    
+                              //     ? RaisedButton(    
+                              //         child: Text('Upload File'),    
+                              //         onPressed: uploadFile,    
+                              //         color: Colors.cyan,    
+                              //       )    
+                              //     : Container(),    
+                              _image != null    
+                                ? Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ButtonTheme(
+                                        minWidth: 100.0,
+                                        height: 30.0,
+                                        child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18.0),
 
-                                    ),
-                                  child: Text("Clear Selection",
-                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold )
-                                    ),
-                                  color: Color(0xffFBB034),
-                                  textColor: Colors.white,
+                                        ),
+                                      child: Text("Clear Selection",
+                                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold )
+                                        ),
+                                      color: Color(0xffFBB034),
+                                      textColor: Colors.white,
+                                      
+                                      onPressed: () {
+                                        setState(() {
+                                          clearSelection();
+                                        });
+                                        
+                                        } 
+                                        ),  
+                                        )
+                                 ) : Container(),   
+
+                              ],
+                            ),
+                          ),
+                          
+
+                          Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.email),
+                                labelText: 'First Name'
+                              ),
+                              controller: firstNameInputController,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (value) {
+                                if (value.length < 3) {
+                                  return "Please enter a valid first name.";
+                                }
+                              },
+                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.email),
+                                labelText: 'Last Name'
+                              ),
+                              controller: lastNameInputController,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (value) {
+                                if (value.length < 3) {
+                                  return "Please enter a valid last name.";
+                                }
+                              },
+                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.email),
+                                labelText: 'Email'
+                              ),
+                              controller: emailInputController,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: emailValidator,
+                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: TextFormField(
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.phone),
+                                  labelText: 'Phone',
+                                ),
+                                controller: phoneInputController,
+                                validator: phoneValidator,
+                                ),
+                            ),
+                            Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: ButtonTheme(
+                                minWidth: 200.0,
+                                height: 50.0,
+                                child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                
+                                //side: BorderSide(color: Colors.red)
+                                ),
+                              child: Text("Proceed",
+                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold )
+                                ),
+                              color: Color(0xffFBB034),
+                              textColor: Colors.white,
+                              
+                              onPressed: () {
+                                if (_registerFormKey.currentState.validate()) {
                                   
-                                  onPressed: () {
-                                    setState(() {
-                                      clearSelection();
-                                    });
-                                    
-                                    } 
-                                    ),  
-                                    )
-                             ) : Container(),   
+                                  if(_image!=null){
+
+                                  uploadFile();
+
+                                  //inputData();
+                                  } else{
+                                      Fluttertoast.showToast(
+                                      msg: "Pease select an image!",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0
+                                  );
+                                  }
+                                  
+                                }
+                              },
+                            ),
+                            )
+
+                            ),
 
                           ],
                         ),
                       ),
-                      
+                             
 
-                      Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.email),
-                            labelText: 'First Name'
-                          ),
-                          controller: firstNameInputController,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (value) {
-                            if (value.length < 3) {
-                              return "Please enter a valid first name.";
-                            }
-                          },
-                          ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.email),
-                            labelText: 'Last Name'
-                          ),
-                          controller: lastNameInputController,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (value) {
-                            if (value.length < 3) {
-                              return "Please enter a valid last name.";
-                            }
-                          },
-                          ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.email),
-                            labelText: 'Email'
-                          ),
-                          controller: emailInputController,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: emailValidator,
-                          ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: TextFormField(
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.phone),
-                              labelText: 'Phone',
-                            ),
-                            controller: phoneInputController,
-                            validator: phoneValidator,
-                            ),
-                        ),
-                        Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: ButtonTheme(
-                            minWidth: 200.0,
-                            height: 50.0,
-                            child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            
-                            //side: BorderSide(color: Colors.red)
-                            ),
-                          child: Text("Proceed",
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold )
-                            ),
-                          color: Color(0xffFBB034),
-                          textColor: Colors.white,
-                          
-                          onPressed: () {
-                            if (_registerFormKey.currentState.validate()) {
-                              
-                              if(_image!=null){
 
-                              uploadFile();
 
-                              //inputData();
-                              } else{
-                                  Fluttertoast.showToast(
-                                  msg: "Pease select an image!",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.red,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0
-                              );
-                              }
-                              
-                            }
-                          },
-                        ),
-                        )
-
-                        ),
-
-                      ],
-                    ),
+                    ],
                   ),
-                         
-
-
-
-                ],
-              ),
+                )
+              )
             )
-          )
+      ),
+          ],
         )
-      )
     );
   }
 

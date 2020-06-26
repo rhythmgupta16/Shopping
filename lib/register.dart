@@ -231,6 +231,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                             })
                                         .catchError((err) => print(err)))
                                     .catchError((err) => print(err));
+
                               } else {
                                 showDialog(
                                     context: context,

@@ -150,10 +150,10 @@ class _LoginPageState extends State<LoginPage> {
                           padding: const EdgeInsets.only(right: 18.0),
                           child: InkWell( // InkWell widget makes the widget clickable and provide call back for touch events
                             onTap: () {
-                              print("Forget Password tap");
+                              Navigator.pushNamed(context, '/forgotPassword');
                             },
                             child: Text(
-                              'Forget Password?',
+                              'Forgot Password?',
                               textAlign: TextAlign.end,
                               style: TextStyle(
                                 color: Color(0xffFBB034),

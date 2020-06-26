@@ -5,6 +5,7 @@ import 'login.dart';
 import 'home.dart';
 import 'phone.dart';
 import 'editProfile.dart';
+import 'forgotPassword.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
           '/register': (BuildContext context) => RegisterPage(),
           '/phone' : (BuildContext context) => PhonePage(),
           '/editProfile' : (BuildContext context) => EditProfilePage(),
+          '/forgotPassword' : (BuildContext context) => ForgotPasswordPage(),
         });
   }
 }

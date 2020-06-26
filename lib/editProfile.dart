@@ -1,6 +1,11 @@
+import 'dart:io'; 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart'; 
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart' as Path;
 
 class EditProfilePage extends StatefulWidget {
   EditProfilePage({Key key}) : super(key: key);
@@ -16,7 +21,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   TextEditingController emailInputController;
   TextEditingController phoneInputController;
 
-    final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  File _image;    
+  String _uploadedFileURL;  
 
   @override
   initState() {
@@ -57,6 +64,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             "surname": lastNameInputController.text,
             "email": emailInputController.text,
             "phone" : phoneInputController.text,
+            "photo" : _uploadedFileURL,
         })
       .then((result) => {
         Navigator.pop(context),
@@ -132,6 +140,85 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       child: Column(
                       children: <Widget>[
                       Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: Text('Selected Image'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Column(
+                        children: <Widget>[
+                          _image != null    
+                              ? Image.asset(    
+                                  _image.path,    
+                                  height: 60,    
+                                )    
+                              : Container(height: 60),    
+                          _image == null    
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ButtonTheme(
+                                    minWidth: 100.0,
+                                    height: 30.0,
+                                    child: RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    
+
+                                    ),
+                                  child: Text("Choose File",
+                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold )
+                                    ),
+                                  color: Color(0xffFBB034),
+                                  textColor: Colors.white,
+                                  
+                                  onPressed: () {
+                                    setState(() {
+                                      chooseFile();
+                                    });
+                                    } 
+                                    ),  
+                                    )
+                             ) : Container(),    
+                          // _image != null    
+                          //     ? RaisedButton(    
+                          //         child: Text('Upload File'),    
+                          //         onPressed: uploadFile,    
+                          //         color: Colors.cyan,    
+                          //       )    
+                          //     : Container(),    
+                          _image != null    
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ButtonTheme(
+                                    minWidth: 100.0,
+                                    height: 30.0,
+                                    child: RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+
+                                    ),
+                                  child: Text("Clear Selection",
+                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold )
+                                    ),
+                                  color: Color(0xffFBB034),
+                                  textColor: Colors.white,
+                                  
+                                  onPressed: () {
+                                    setState(() {
+                                      clearSelection();
+                                    });
+                                    
+                                    } 
+                                    ),  
+                                    )
+                             ) : Container(),   
+
+                          ],
+                        ),
+                      ),
+                      
+
+                      Padding(
                         padding: const EdgeInsets.all(18.0),
                         child: TextFormField(
                           decoration: InputDecoration(
@@ -205,9 +292,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           
                           onPressed: () {
                             if (_registerFormKey.currentState.validate()) {
+                              
+                              if(_image!=null){
 
-                              inputData();
-                             
+                              uploadFile();
+
+                              //inputData();
+                              } else{
+                                  Fluttertoast.showToast(
+                                  msg: "Pease select an image!",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0
+                              );
+                              }
                               
                             }
                           },
@@ -231,4 +332,39 @@ class _EditProfilePageState extends State<EditProfilePage> {
       )
     );
   }
+
+Future chooseFile() async {    
+   await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {    
+     setState(() {    
+       _image = image;    
+     });    
+   });    
+ }
+
+ Future uploadFile() async {    
+   StorageReference storageReference = FirebaseStorage.instance    
+       .ref()    
+       .child('users/${Path.basename(_image.path)}');    
+   StorageUploadTask uploadTask = storageReference.putFile(_image);    
+   await uploadTask.onComplete;    
+   print('File Uploaded');    
+   storageReference.getDownloadURL().then((fileURL) {    
+     setState(() {    
+       _uploadedFileURL = fileURL;
+       
+       
+       inputData();  
+
+
+     });    
+   });    
+ }  
+
+   void clearSelection() {
+    setState(() {
+      _image = null;
+      _uploadedFileURL = null;
+    });
+  }
+
 }

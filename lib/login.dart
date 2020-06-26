@@ -389,6 +389,7 @@ Future<FirebaseUser> facebookLogin(BuildContext context) async {
                         "fname": "Update in Edit Profile",
                         "surname": "Update in Edit Profile",
                         "email":"Update in Edit Profile",
+                        "photo": "Update in Edit Profile",
                       }).then((_){
                           print("facebook database success!");
                           // return 'signInWithGoogle succeeded: $user';

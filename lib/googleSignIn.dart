@@ -55,6 +55,7 @@ Future<String> signInWithGoogle() async {
                 "surname": "Update in Edit Profile",
                 "email":"Update in Edit Profile",
                 "phone" :"Update in Edit Profile",
+                "photo": "Update in Edit Profile",
               }).then((_){
                   print("google database success!");
                   // return 'signInWithGoogle succeeded: $user';

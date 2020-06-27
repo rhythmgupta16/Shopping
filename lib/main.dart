@@ -23,9 +23,9 @@ class MyApp extends StatelessWidget {
           '/home': (BuildContext context) => HomePage(title: 'Home'),
           '/login': (BuildContext context) => LoginPage(),
           '/register': (BuildContext context) => RegisterPage(),
-          '/phone' : (BuildContext context) => PhonePage(),
-          '/editProfile' : (BuildContext context) => EditProfilePage(),
-          '/forgotPassword' : (BuildContext context) => ForgotPasswordPage(),
+          '/phone': (BuildContext context) => PhonePage(),
+          '/editProfile': (BuildContext context) => EditProfilePage(),
+          '/forgotPassword': (BuildContext context) => ForgotPasswordPage(),
         });
   }
 }

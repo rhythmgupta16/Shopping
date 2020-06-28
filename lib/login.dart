@@ -30,6 +30,7 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
   }
 
+  //Validate Email input
   String emailValidator(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -41,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  //Validate Password input
   String pwdValidator(String value) {
     if (value.length < 8) {
       return 'Password must be longer than 8 characters';
@@ -52,10 +54,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onBackPressed,
+      onWillPop: _onBackPressed, //Asks confirmation on exitting
       child: new Scaffold(
         body: Container(
-          //padding: const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
             child: Container(
               height: MediaQuery.of(context).size.height,
@@ -113,6 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         child: Column(
                           children: <Widget>[
+                            // Email input
                             Padding(
                               padding: const EdgeInsets.all(18.0),
                               child: TextFormField(
@@ -124,6 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                                 validator: emailValidator,
                               ),
                             ),
+                            // Password input
                             Padding(
                               padding: const EdgeInsets.all(18.0),
                               child: TextFormField(
@@ -137,6 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                                 validator: pwdValidator,
                               ),
                             ),
+                            // Forgot password
                             Container(
                               width: MediaQuery.of(context).size.width,
                               alignment: Alignment.centerRight,
@@ -160,6 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                             ),
+                            // Login using mobile number
                             Container(
                               margin: EdgeInsets.only(top: 20),
                               child: InkWell(
@@ -186,6 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                             ),
+                            // Submit button for login details
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
@@ -273,10 +279,11 @@ class _LoginPageState extends State<LoginPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
+                                // Facebook login
                                 Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Material(
-                                        child: InkWell(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Material(
+                                    child: InkWell(
                                       onTap: () {
                                         facebookLogin(context).then((user) {
                                           if (user != null) {
@@ -299,7 +306,10 @@ class _LoginPageState extends State<LoginPage> {
                                               height: 80.0),
                                         ),
                                       ),
-                                    ))),
+                                    ),
+                                  ),
+                                ),
+                                // Google login
                                 Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Material(
@@ -326,6 +336,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
+                    // Register
                     Padding(
                       padding: const EdgeInsets.all(18.0),
                       child: InkWell(

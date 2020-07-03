@@ -16,44 +16,54 @@ class _CategoryItemState extends State<CategoryItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 2),
+      margin: EdgeInsets.symmetric(vertical: 1),
       child: GestureDetector(
         onTap: () {
           print("You have tapped on ${widget.category.name}");
         },
-        child: Container(
-          child: Row(
-            children: <Widget>[
-              Stack(
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          color: Colors.white,
+          elevation: 2,
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Container(
+              child: Row(
                 children: <Widget>[
-                  Container(
-                    height: 50,
-                    width: 50,
-                    child: Center(
-                      child: CupertinoActivityIndicator(),
-                    ),
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        height: 50,
+                        width: 50,
+                        child: Center(
+                          child: CupertinoActivityIndicator(),
+                        ),
+                      ),
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: NetworkImage(widget.category.imgURL ??
+                                  'https://graphql.org/users/logos/github.png'),
+                              fit: BoxFit.fill),
+                        ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: NetworkImage(widget.category.imgURL ??
-                              'https://graphql.org/users/logos/github.png'),
-                          fit: BoxFit.fill),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      widget.category.name,
+                      style: TextStyle(fontSize: 17),
                     ),
-                  ),
+                  )
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  widget.category.name,
-                  style: TextStyle(fontSize: 18),
-                ),
-              )
-            ],
+            ),
           ),
         ),
       ),

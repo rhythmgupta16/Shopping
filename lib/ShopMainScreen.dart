@@ -6,7 +6,6 @@ import 'package:shopping/topFourCategoriesItem.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shopping/trending.dart';
 import 'package:shopping/trendingItem.dart';
-import 'package:shopping/searchProducts.dart';
 import 'package:shopping/featured.dart';
 import 'package:shopping/featuredItem.dart';
 
@@ -73,27 +72,6 @@ class _ShopMainScreen extends State<ShopMainScreen> {
     }
   }
   """;
-
-  // String searchProducts = """
-  // query($search:String!){
-  //   product(where: {name: {_ilike: $search}}) {
-  //     ID
-  //     name
-  //     Images(limit: 1) {
-  //       url
-  //     }
-  //     currency
-  //     price
-  //     rating
-  //     ratingCount
-  //     Seller {
-  //       Name
-  //     }
-  //   }
-  // }
-  // """;
-
-  static String search;
 
   @override
   Widget build(BuildContext context) {
@@ -323,8 +301,8 @@ class _ShopMainScreen extends State<ShopMainScreen> {
                     return CircularProgressIndicator();
                   }
                   // Casting the Categories into CategoryList Object present in Category.dart
-                  TrendingList cl =
-                      TrendingList.fromResponse(result.data['product']);
+                  FeaturedList fl =
+                      FeaturedList.fromResponse(result.data['product']);
                   // Displaying the ListView on successful response
                   return Container(
                     margin: EdgeInsets.all(5.0),
@@ -333,13 +311,13 @@ class _ShopMainScreen extends State<ShopMainScreen> {
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
-                        itemCount: cl.trending.length,
+                        itemCount: fl.featured.length,
                         itemBuilder: (context, index) {
                           // Category Object contains the name & url of category
-                          final trending = cl.trending[index];
+                          final featured = fl.featured[index];
 
                           // Showing custom item ui for a particular category
-                          return TrendingItem(trending: trending);
+                          return FeaturedItem(featured: featured);
                         }),
                   );
                 },

@@ -8,7 +8,7 @@ class Featured {
 
   Featured(
     this.name,
-    this.imgURL,
+    //this.imgURL,
     this.rating,
     this.ratingCount,
     this.price,
@@ -18,7 +18,7 @@ class Featured {
   factory Featured.fromResults(Map<String, dynamic> result) {
     return Featured(
       result['name'],
-      result['Images']['url'],
+      //result['Images']['url'],
       result['rating'],
       result['ratingCount'],
       result['price'],
@@ -35,13 +35,15 @@ class FeaturedList {
   factory FeaturedList.fromResponse(List<dynamic> list) {
     List<Featured> temp = List<Featured>();
     list.forEach((item) {
-      temp.add(Featured(
-          item['name'],
-          item['Images'][0]['url'],
-          (item['rating']).toString(),
-          (item['ratingCount']).toString(),
-          (item['price']).toString(),
-          item['currency']));
+      temp.add(
+        Featured(
+            item['name'],
+            //(item['Images'][0]['url']),
+            (item['rating']).toString(),
+            (item['ratingCount']).toString(),
+            (item['price']).toString(),
+            item['currency']),
+      );
     });
     return FeaturedList(temp);
   }

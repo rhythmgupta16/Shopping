@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:shopping/productsList.dart';
 import 'register.dart';
 import 'splash.dart';
 import 'login.dart';
@@ -56,6 +57,7 @@ class _MyAppState extends State<MyApp> {
               '/editProfile': (BuildContext context) => EditProfilePage(),
               '/forgotPassword': (BuildContext context) => ForgotPasswordPage(),
               '/shopMainScreen': (BuildContext context) => ShopMainScreen(),
+              '/productsList': (BuildContext context) => ProductsList(),
             }),
       ),
     );

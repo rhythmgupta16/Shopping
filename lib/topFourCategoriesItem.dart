@@ -21,6 +21,7 @@ class _TopFourCategoriesItemState extends State<TopFourCategoriesItem> {
       child: GestureDetector(
         onTap: () {
           print("You have tapped on ${widget.category.name}");
+          Navigator.pushNamed(context, '/productsList');
         },
         child: Card(
           shape: RoundedRectangleBorder(

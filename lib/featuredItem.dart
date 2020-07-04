@@ -16,18 +16,20 @@ class _FeaturedItemState extends State<FeaturedItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 4),
+      margin: EdgeInsets.fromLTRB(4, 0, 4, 4),
       width: 150,
       child: GestureDetector(
         onTap: () {
           print("You have tapped on ${widget.featured.name}");
+          Navigator.pushNamed(context, '/productDetails');
         },
         child: Card(
+          //margin: EdgeInsets.all(2),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
           color: Colors.white,
-          elevation: 10,
+          elevation: 4,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -56,8 +58,8 @@ class _FeaturedItemState extends State<FeaturedItem> {
                       child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Container(
-                          width: 70,
-                          height: 25,
+                          width: 82,
+                          height: 23,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.only(
@@ -82,14 +84,17 @@ class _FeaturedItemState extends State<FeaturedItem> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.featured.name,
-                    //overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 14),
+                  child: Container(
+                    height: 66,
+                    child: Text(
+                      widget.featured.name,
+                      //overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14),
+                    ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: Row(
                     children: <Widget>[
                       (double.parse(widget.featured.rating) >= 4.0)

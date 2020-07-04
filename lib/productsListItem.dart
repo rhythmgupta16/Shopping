@@ -15,17 +15,18 @@ class _ProductsListItemState extends State<ProductsListItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 4),
+      margin: EdgeInsets.symmetric(horizontal: 2, vertical: 1),
       child: GestureDetector(
         onTap: () {
           print("You have tapped on ${widget.productsList.name}");
+          Navigator.pushNamed(context, '/productDetails');
         },
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
           color: Colors.white,
-          elevation: 10,
+          elevation: 5,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -80,14 +81,17 @@ class _ProductsListItemState extends State<ProductsListItem> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.productsList.name,
-                    //overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 14),
+                  child: Container(
+                    height: 48,
+                    child: Text(
+                      widget.productsList.name,
+                      //overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14),
+                    ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
                   child: Row(
                     children: <Widget>[
                       (double.parse(widget.productsList.rating) >= 4.0)

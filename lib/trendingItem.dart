@@ -28,7 +28,7 @@ class _TrendingItemState extends State<TrendingItem> {
             borderRadius: BorderRadius.circular(15.0),
           ),
           color: Colors.white,
-          elevation: 10,
+          elevation: 4,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -57,8 +57,8 @@ class _TrendingItemState extends State<TrendingItem> {
                       child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Container(
-                          width: 70,
-                          height: 25,
+                          width: 82,
+                          height: 23,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.only(
@@ -83,10 +83,13 @@ class _TrendingItemState extends State<TrendingItem> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.trending.name,
-                    //overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 14),
+                  child: Container(
+                    height: 66,
+                    child: Text(
+                      widget.trending.name,
+                      //overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14),
+                    ),
                   ),
                 ),
                 Padding(

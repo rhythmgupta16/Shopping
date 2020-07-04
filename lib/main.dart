@@ -10,6 +10,7 @@ import 'editProfile.dart';
 import 'forgotPassword.dart';
 import 'ShopMainScreen.dart';
 import 'productDetails.dart';
+import 'search.dart';
 
 void main() => runApp(MyApp());
 
@@ -60,6 +61,7 @@ class _MyAppState extends State<MyApp> {
               '/shopMainScreen': (BuildContext context) => ShopMainScreen(),
               '/productsList': (BuildContext context) => ProductsList(),
               '/productDetails': (BuildContext context) => ProductDetails(),
+              '/search': (BuildContext context) => Search(),
             }),
       ),
     );

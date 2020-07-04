@@ -1,5 +1,6 @@
 class ProductDetailsData {
   String name;
+  String description;
   String imageOne;
   String imageTwo;
   String imageThree;
@@ -12,6 +13,7 @@ class ProductDetailsData {
 
   ProductDetailsData(
     this.name,
+    this.description,
     this.imageOne,
     this.imageTwo,
     this.imageThree,
@@ -26,6 +28,7 @@ class ProductDetailsData {
   factory ProductDetailsData.fromResults(Map<String, dynamic> result) {
     return ProductDetailsData(
       result['name'],
+      result['description'],
       result['Images'][0]['url'],
       result['Images'][1]['url'],
       result['Images'][2]['url'],
@@ -127,6 +130,7 @@ class ProductDetailsDataList {
       temp.add(
         ProductDetailsData(
           item['name'],
+          item['description'],
           item['Images'][0]['url'],
           item['Images'][1]['url'],
           item['Images'][2]['url'],

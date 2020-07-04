@@ -29,7 +29,7 @@ class _CategoryItemState extends State<CategoryItem> {
           color: Colors.white,
           elevation: 2,
           child: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(4.0),
             child: Container(
               child: Row(
                 children: <Widget>[

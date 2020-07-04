@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping/Category.dart';
 import 'package:shopping/CategoryItem.dart';
+import 'package:shopping/searchArguments.dart';
 import 'package:shopping/topFourCategories.dart';
 import 'package:shopping/topFourCategoriesItem.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -21,7 +22,16 @@ class ShopMainScreen extends StatefulWidget {
 
 class _ShopMainScreen extends State<ShopMainScreen> {
   //used for the first list
+  final myController = TextEditingController();
   bool pressed = false;
+  String searchString;
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
 
   // GraphQL query to be fetched
   String getCategories = """
@@ -124,6 +134,7 @@ class _ShopMainScreen extends State<ShopMainScreen> {
                             ),
                             Expanded(
                               child: TextField(
+                                controller: myController,
                                 decoration: InputDecoration(
                                   hintText: "Search",
                                 ),
@@ -135,7 +146,10 @@ class _ShopMainScreen extends State<ShopMainScreen> {
                                 color: Colors.red,
                               ),
                               onPressed: () {
-                                print("your menu action here");
+                                searchString = ("%" + myController.text + "%");
+                                print(searchString);
+                                Navigator.pushNamed(context, '/search',
+                                    arguments: SearchArguments(searchString));
                               },
                             ),
                           ],

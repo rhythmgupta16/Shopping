@@ -85,7 +85,7 @@ query (\$productID: uuid!) {
                   // Displaying the ListView on successful response
                   return Container(
                     margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                    height: 1250.0,
+                    height: 1400.0,
                     //width: 400.0,
                     // child: ListView.builder(
                     //    scrollDirection: Axis.vertical,

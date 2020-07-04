@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'trending.dart';
 
 class TrendingItem extends StatefulWidget {

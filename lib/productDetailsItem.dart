@@ -13,6 +13,8 @@ class ProductDetailsItem extends StatefulWidget {
 }
 
 class _ProductDetailsItemState extends State<ProductDetailsItem> {
+  bool pressed = false;
+
   @override
   Widget build(BuildContext context) {
     //int length = 0;
@@ -55,8 +57,9 @@ class _ProductDetailsItemState extends State<ProductDetailsItem> {
                             return Container(
                               width: MediaQuery.of(context).size.width,
                               margin: EdgeInsets.symmetric(horizontal: 5.0),
-                              decoration:
-                                  BoxDecoration(color: Colors.blueAccent),
+                              decoration: BoxDecoration(
+                                color: Colors.amber,
+                              ),
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
                                 //height: 370,
@@ -92,14 +95,17 @@ class _ProductDetailsItemState extends State<ProductDetailsItem> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        widget.productDetailsList.currency +
-                            " " +
-                            widget.productDetailsList.price,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 45, 0),
+                        child: Text(
+                          widget.productDetailsList.currency +
+                              " " +
+                              widget.productDetailsList.price,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green[600],
+                          ),
                         ),
                       ),
                       (double.parse(widget.productDetailsList.rating) >= 4.0)
@@ -129,37 +135,99 @@ class _ProductDetailsItemState extends State<ProductDetailsItem> {
                                 ),
                       Text(
                         widget.productDetailsList.rating,
+                        style: TextStyle(
+                          fontSize: 16,
+                          //fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                       Text(
                         " (" + widget.productDetailsList.ratingCount + ")",
+                        style: TextStyle(
+                          fontSize: 16,
+                          //fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: 300,
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(2.0),
-                            side: BorderSide(color: Colors.black)),
-                        onPressed: () {},
-                        color: Colors.white,
-                        textColor: Colors.black,
-                        child: Text(
-                          "Read More",
-                          style: TextStyle(
-                            fontSize: 18,
-                            //fontWeight: FontWeight.bold,
+                !pressed
+                    ? Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                width: 300,
+                                child: RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(2.0),
+                                      side: BorderSide(color: Colors.black)),
+                                  onPressed: () {
+                                    setState(() {
+                                      pressed = !pressed;
+                                    });
+                                  },
+                                  color: Colors.white,
+                                  textColor: Colors.black,
+                                  child: Text(
+                                    "Read More",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      //fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
+                      )
+                    : Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              widget.productDetailsList.description,
+                              //overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                width: 300,
+                                child: RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(2.0),
+                                      side: BorderSide(color: Colors.black)),
+                                  onPressed: () {
+                                    setState(() {
+                                      pressed = !pressed;
+                                    });
+                                  },
+                                  color: Colors.white,
+                                  textColor: Colors.black,
+                                  child: Text(
+                                    "Read Less",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      //fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 10.0),
                   child: Container(
@@ -457,30 +525,30 @@ class _ProductDetailsItemState extends State<ProductDetailsItem> {
                           }).toList(),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            width: 300,
-                            child: RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2.0),
-                                  side: BorderSide(color: Colors.black)),
-                              onPressed: () {},
-                              color: Colors.white,
-                              textColor: Colors.black,
-                              child: Text(
-                                "See all Reviews",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  //fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                      //   child: Align(
+                      //     alignment: Alignment.center,
+                      //     child: Container(
+                      //       width: 300,
+                      //       child: RaisedButton(
+                      //         shape: RoundedRectangleBorder(
+                      //             borderRadius: BorderRadius.circular(2.0),
+                      //             side: BorderSide(color: Colors.black)),
+                      //         onPressed: () {},
+                      //         color: Colors.white,
+                      //         textColor: Colors.black,
+                      //         child: Text(
+                      //           "See all Reviews",
+                      //           style: TextStyle(
+                      //             fontSize: 18,
+                      //             //fontWeight: FontWeight.bold,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

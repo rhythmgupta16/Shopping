@@ -13,6 +13,7 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   //
   static String productID;
+  String currency, price, rating, ratingCount;
   //
   String getProductDetails = """
 query (\$productID: uuid!) {
@@ -52,12 +53,9 @@ query (\$productID: uuid!) {
     final orientation = MediaQuery.of(context).orientation;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Shop"),
-      ),
       body: SingleChildScrollView(
         // Running the Query in this widget
-        child: Column(
+        child: Stack(
           children: <Widget>[
             Container(
               child: Query(
@@ -82,6 +80,7 @@ query (\$productID: uuid!) {
                   ProductDetailsDataList pdl =
                       ProductDetailsDataList.fromResponse(
                           result.data['product']);
+
                   // Displaying the ListView on successful response
                   return Container(
                     margin: EdgeInsets.all(5.0),
@@ -104,7 +103,27 @@ query (\$productID: uuid!) {
                 },
               ),
             ),
+            Positioned(
+              left: 20,
+              top: 50,
+              child: FloatingActionButton(
+                foregroundColor: Colors.black54,
+                backgroundColor: Colors.yellow[600],
+                child: Icon(Icons.keyboard_arrow_left),
+                onPressed: () {
+                  print('Clicked');
+                  Navigator.of(context).pop(true);
+                },
+              ),
+            ),
           ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        child: Container(
+          color: Colors.black87,
+          height: 50.0,
         ),
       ),
     );

@@ -456,6 +456,46 @@ class _ShopMainScreen extends State<ShopMainScreen> {
                 ),
               ),
             ),
+            Container(
+              child: Query(
+                options: QueryOptions(
+                  documentNode: gql(getFeaturedCategories),
+                ),
+                builder: (QueryResult result,
+                    {VoidCallback refetch, FetchMore fetchMore}) {
+                  if (result.hasException) {
+                    // error connecting to server
+                    print(result.exception.toString());
+                    return Text("Error Connecting to server!");
+                  }
+
+                  if (result.loading) {
+                    // getting data from the server
+                    return CircularProgressIndicator();
+                  }
+                  // Casting the Categories into CategoryList Object present in Category.dart
+                  FeaturedList fl =
+                      FeaturedList.fromResponse(result.data['product']);
+                  // Displaying the ListView on successful response
+                  return Container(
+                    margin: EdgeInsets.all(5.0),
+                    height: 250.0,
+                    width: 400.0,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: fl.featured.length,
+                        itemBuilder: (context, index) {
+                          // Category Object contains the name & url of category
+                          final featured = fl.featured[index];
+
+                          // Showing custom item ui for a particular category
+                          return FeaturedItem(featured: featured);
+                        }),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),

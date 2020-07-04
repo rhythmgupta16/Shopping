@@ -21,6 +21,7 @@ class _TrendingItemState extends State<TrendingItem> {
       child: GestureDetector(
         onTap: () {
           print("You have tapped on ${widget.trending.name}");
+          Navigator.pushNamed(context, '/productDetails');
         },
         child: Card(
           shape: RoundedRectangleBorder(

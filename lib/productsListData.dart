@@ -8,7 +8,7 @@ class ProductsListData {
 
   ProductsListData(
     this.name,
-    //this.imgURL,
+    this.imgURL,
     this.rating,
     this.ratingCount,
     this.price,
@@ -18,7 +18,7 @@ class ProductsListData {
   factory ProductsListData.fromResults(Map<String, dynamic> result) {
     return ProductsListData(
       result['name'],
-      //result['Images']['url'],
+      result['Images']['url'],
       result['rating'],
       result['ratingCount'],
       result['price'],
@@ -37,7 +37,7 @@ class ProductsListDataList {
     list.forEach((item) {
       temp.add(ProductsListData(
           item['name'],
-          //item['Images'][0]['url'],
+          item['Images'][0]['url'],
           (item['rating']).toString(),
           (item['ratingCount']).toString(),
           (item['price']).toString(),

@@ -1,33 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/productsListData.dart';
-import 'package:shopping/productsListItem.dart';
+import 'package:shopping/productDetailsData.dart';
+import 'package:shopping/productDetailsItem.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-class ProductsList extends StatefulWidget {
-  ProductsList({Key key}) : super(key: key);
+class ProductDetails extends StatefulWidget {
+  ProductDetails({Key key}) : super(key: key);
 
   @override
-  _ProductsListState createState() => _ProductsListState();
+  _ProductDetailsState createState() => _ProductDetailsState();
 }
 
-class _ProductsListState extends State<ProductsList> {
+class _ProductDetailsState extends State<ProductDetails> {
   //
-  static String category;
+  static String productID;
   //
-  String getProductCategories = """
-  query(\$category: uuid!){
-    product(where: {Category: {ID: {_eq: \$category}}}, limit:5 ) {
-      ID
+  String getProductDetails = """
+query (\$productID: uuid!) {
+  product(where: {ID: {_eq: \$productID}}) {
+    name
+    description
+    currency
+    price
+    rating
+    ratingCount
+    Images {
+      url
+    }
+    reviews {
       name
-      Images(limit: 1) {
-        url
-      }
-      currency
-      price
+      profile_url
+      review
       rating
-      ratingCount
+    }
+    product_tags {
+      tag {
+        tag
+      }
+    }
+    Seller {
+      Name
+      ID
+      seller_rating
+      seller_profile
     }
   }
+}
   """;
 
   @override
@@ -45,9 +62,9 @@ class _ProductsListState extends State<ProductsList> {
             Container(
               child: Query(
                 options: QueryOptions(
-                    documentNode: gql(getProductCategories),
+                    documentNode: gql(getProductDetails),
                     variables: {
-                      "category": "7e369680-7498-4c06-b974-19649f12d047"
+                      "productID": "7e928b70-475b-4e23-9a5f-1ced7df856d2"
                     }),
                 builder: (QueryResult result,
                     {VoidCallback refetch, FetchMore fetchMore}) {
@@ -62,26 +79,26 @@ class _ProductsListState extends State<ProductsList> {
                     return CircularProgressIndicator();
                   }
                   // Casting the Categories into CategoryList Object present in Category.dart
-                  ProductsListDataList pl =
-                      ProductsListDataList.fromResponse(result.data['product']);
+                  ProductDetailsDataList pdl =
+                      ProductDetailsDataList.fromResponse(
+                          result.data['product']);
                   // Displaying the ListView on successful response
                   return Container(
                     margin: EdgeInsets.all(5.0),
                     //height: 500.0,
                     //width: 400.0,
-                    child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount:
-                                (orientation == Orientation.portrait) ? 2 : 3),
+                    child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
-                        itemCount: pl.productsList.length,
+                        itemCount: pdl.productDetailsList.length,
                         itemBuilder: (context, index) {
                           // Category Object contains the name & url of category
-                          final productsList = pl.productsList[index];
+                          final productDetailsList =
+                              pdl.productDetailsList[index];
 
                           // Showing custom item ui for a particular category
-                          return ProductsListItem(productsList: productsList);
+                          return ProductDetailsItem(
+                              productDetailsList: productDetailsList);
                         }),
                   );
                 },

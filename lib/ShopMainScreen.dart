@@ -59,7 +59,7 @@ class _ShopMainScreen extends State<ShopMainScreen> {
 
   String getFeaturedCategories = """
   query{
-    product(where: {isFeatured: {_eq: true}}) {
+    product(where: {isFeatured: {_eq: true}}, limit:4) {
       ID
       name
       Images(limit: 1) {
@@ -231,10 +231,28 @@ class _ShopMainScreen extends State<ShopMainScreen> {
                 ],
               ),
             ),
-            Text(
-              'Trending',
-              style: TextStyle(
-                decoration: TextDecoration.underline,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+                        child: Icon(Icons.trending_up),
+                      ),
+                      Text(
+                        'Trending',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22,
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
             Container(
@@ -277,10 +295,28 @@ class _ShopMainScreen extends State<ShopMainScreen> {
                 },
               ),
             ),
-            Text(
-              'Featured',
-              style: TextStyle(
-                decoration: TextDecoration.underline,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+                        child: Icon(Icons.shopping_basket),
+                      ),
+                      Text(
+                        'Featured',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22,
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
             Container(
@@ -321,6 +357,26 @@ class _ShopMainScreen extends State<ShopMainScreen> {
                         }),
                   );
                 },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        'Books',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22,
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ],

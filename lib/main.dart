@@ -9,6 +9,7 @@ import 'phone.dart';
 import 'editProfile.dart';
 import 'forgotPassword.dart';
 import 'ShopMainScreen.dart';
+import 'productDetails.dart';
 
 void main() => runApp(MyApp());
 
@@ -58,6 +59,7 @@ class _MyAppState extends State<MyApp> {
               '/forgotPassword': (BuildContext context) => ForgotPasswordPage(),
               '/shopMainScreen': (BuildContext context) => ShopMainScreen(),
               '/productsList': (BuildContext context) => ProductsList(),
+              '/productDetails': (BuildContext context) => ProductDetails(),
             }),
       ),
     );

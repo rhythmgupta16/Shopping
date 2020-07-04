@@ -80,25 +80,24 @@ query (\$productID: uuid!) {
                   ProductDetailsDataList pdl =
                       ProductDetailsDataList.fromResponse(
                           result.data['product']);
+                  final productDetailsList = pdl.productDetailsList[0];
 
                   // Displaying the ListView on successful response
                   return Container(
-                    margin: EdgeInsets.all(5.0),
-                    //height: 500.0,
+                    margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                    height: 1250.0,
                     //width: 400.0,
-                    child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: pdl.productDetailsList.length,
-                        itemBuilder: (context, index) {
-                          // Category Object contains the name & url of category
-                          final productDetailsList =
-                              pdl.productDetailsList[index];
+                    // child: ListView.builder(
+                    //    scrollDirection: Axis.vertical,
+                    //    shrinkWrap: true,
+                    //    itemCount: pdl.productDetailsList.length,
+                    //    itemBuilder: (context, index) {
+                    // Category Object contains the name & url of category
 
-                          // Showing custom item ui for a particular category
-                          return ProductDetailsItem(
-                              productDetailsList: productDetailsList);
-                        }),
+                    // Showing custom item ui for a particular category
+                    child: ProductDetailsItem(
+                        productDetailsList: productDetailsList),
+                    //}),
                   );
                 },
               ),
@@ -124,6 +123,33 @@ query (\$productID: uuid!) {
         child: Container(
           color: Colors.black87,
           height: 50.0,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 200,
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          side: BorderSide(color: Colors.yellow[600])),
+                      onPressed: () {},
+                      color: Colors.yellow[600],
+                      textColor: Colors.black,
+                      child: Text(
+                        "Buy now".toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

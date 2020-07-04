@@ -26,15 +26,15 @@ class ProductDetailsData {
   factory ProductDetailsData.fromResults(Map<String, dynamic> result) {
     return ProductDetailsData(
       result['name'],
-      result['Images']['url'],
-      result['Images']['url'],
-      result['Images']['url'],
+      result['Images'][0]['url'],
+      result['Images'][1]['url'],
+      result['Images'][2]['url'],
       result['rating'],
       result['ratingCount'],
       result['price'],
       result['currency'],
-      result['reviews'],
-      result['product_tags'],
+      ReviewList.fromResponse(result['reviews']).reviewList,
+      TagsList.fromResponse(result['product_tags']).tags,
     );
   }
 }
@@ -62,26 +62,26 @@ class Review {
   }
 }
 
-// class ReviewList {
-//   List<Review> reviewList;
+class ReviewList {
+  List<Review> reviewList;
 
-//   ReviewList(this.reviewList);
+  ReviewList(this.reviewList);
 
-//   factory ReviewList.fromResponse(List<dynamic> list) {
-//     List<Review> temp = List<Review>();
-//     list.forEach((item) {
-//       temp.add(
-//         Review(
-//           item['name'],
-//           item['profile_url'],
-//           item['review'],
-//           item['rating'].toString(),
-//         ),
-//       );
-//     });
-//     return ReviewList(temp);
-//   }
-// }
+  factory ReviewList.fromResponse(List<dynamic> list) {
+    List<Review> temp = List<Review>();
+    list.forEach((item) {
+      temp.add(
+        Review(
+          item['name'],
+          item['profile_url'],
+          item['review'],
+          item['rating'].toString(),
+        ),
+      );
+    });
+    return ReviewList(temp);
+  }
+}
 
 class Tags {
   String tag;
@@ -94,6 +94,25 @@ class Tags {
     return Tags(
       result['tag'],
     );
+  }
+}
+
+class TagsList {
+  List<Tags> tags;
+
+  TagsList(
+    this.tags,
+  );
+  factory TagsList.fromResponse(List<dynamic> list) {
+    List<Tags> temp = List<Tags>();
+    list.forEach((item) {
+      temp.add(
+        Tags(
+          item['tag'].toString(),
+        ),
+      );
+    });
+    return TagsList(temp);
   }
 }
 
@@ -115,8 +134,8 @@ class ProductDetailsDataList {
           (item['ratingCount']).toString(),
           (item['price']).toString(),
           item['currency'],
-          item['reviews'].cast<Review>(),
-          item['product_tags'].cast<Tags>(),
+          ReviewList.fromResponse(item['reviews']).reviewList,
+          TagsList.fromResponse(item['product_tags']).tags,
         ),
       );
     });

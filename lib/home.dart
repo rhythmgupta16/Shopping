@@ -149,6 +149,27 @@ class _HomePageState extends State<HomePage> {
                               }),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: ButtonTheme(
+                          minWidth: 200.0,
+                          height: 50.0,
+                          child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                              child: Text("Payment",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
+                              color: Color(0xffFBB034),
+                              textColor: Colors.white,
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, '/checkoutProduct');
+                              }),
+                        ),
+                      ),
                     ],
                   ),
                 ),

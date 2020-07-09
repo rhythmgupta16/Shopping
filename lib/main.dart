@@ -11,6 +11,8 @@ import 'forgotPassword.dart';
 import 'ShopMainScreen.dart';
 import 'productDetails.dart';
 import 'search.dart';
+import 'checkoutProduct.dart';
+import 'paymentPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -62,6 +64,8 @@ class _MyAppState extends State<MyApp> {
               '/productsList': (BuildContext context) => ProductsList(),
               '/productDetails': (BuildContext context) => ProductDetails(),
               '/search': (BuildContext context) => Search(),
+              '/checkoutProduct': (BuildContext context) => CheckoutProduct(),
+              '/paymentPage': (BuildContext context) => PaymentPage(),
             }),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shopping/productsList.dart';
+import 'package:shopping/shippingForm.dart';
 import 'register.dart';
 import 'splash.dart';
 import 'login.dart';
@@ -66,6 +67,7 @@ class _MyAppState extends State<MyApp> {
               '/search': (BuildContext context) => Search(),
               '/checkoutProduct': (BuildContext context) => CheckoutProduct(),
               '/paymentPage': (BuildContext context) => PaymentPage(),
+              '/shippingForm': (BuildContext context) => ShippingForm(),
             }),
       ),
     );

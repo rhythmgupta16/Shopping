@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'shippingModel.dart';
 
 class CheckoutProduct extends StatefulWidget {
   CheckoutProduct({Key key}) : super(key: key);
@@ -674,7 +675,18 @@ class _CheckoutProductState extends State<CheckoutProduct> {
                           borderRadius: BorderRadius.circular(8.0),
                           side: BorderSide(color: Colors.yellow[600])),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/paymentPage');
+                        Navigator.pushNamed(
+                          context,
+                          '/paymentPage',
+                          arguments: ShippingModel(
+                            firstName: "-",
+                            lastName: "-",
+                            address: "-",
+                            city: "-",
+                            state: "-",
+                            pinCode: "-",
+                          ),
+                        );
                       },
                       color: Colors.yellow[600],
                       textColor: Colors.black,

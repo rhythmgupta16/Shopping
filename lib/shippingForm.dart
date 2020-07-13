@@ -196,6 +196,7 @@ class _ShippingFormState extends State<ShippingForm> {
                             pinCode: model.pinCode,
                             prodName: eModel.productName,
                             price: eModel.productPrice,
+                            image: eModel.productImage,
                           ),
                         );
                       }

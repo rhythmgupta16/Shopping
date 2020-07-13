@@ -30,6 +30,7 @@ class _CheckoutProductState extends State<CheckoutProduct> {
                     var result = cdl['data']['product'][0];
                     model.prodName = result['name'];
                     model.price = result['price'].toString();
+                    model.image = result['Images'][0]['url'];
 
                     return ListView.builder(
                         scrollDirection: Axis.vertical,
@@ -691,6 +692,7 @@ class _CheckoutProductState extends State<CheckoutProduct> {
                             pinCode: "-",
                             prodName: model.prodName,
                             price: model.price,
+                            image: model.image,
                           ),
                         );
                       },

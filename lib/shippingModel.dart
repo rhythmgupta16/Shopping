@@ -7,6 +7,7 @@ class ShippingModel {
   String pinCode;
   String prodName;
   String price;
+  String image;
   ShippingModel({
     this.firstName,
     this.lastName,
@@ -16,5 +17,6 @@ class ShippingModel {
     this.pinCode,
     this.prodName,
     this.price,
+    this.image,
   });
 }

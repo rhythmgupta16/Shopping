@@ -13,6 +13,8 @@ class CheckoutProduct extends StatefulWidget {
 
 class _CheckoutProductState extends State<CheckoutProduct> {
   bool pressed = false;
+  ShippingModel model = ShippingModel();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +28,8 @@ class _CheckoutProductState extends State<CheckoutProduct> {
                   builder: (context, snapshot) {
                     var cdl = json.decode(snapshot.data.toString());
                     var result = cdl['data']['product'][0];
+                    model.prodName = result['name'];
+                    model.price = result['price'].toString();
 
                     return ListView.builder(
                         scrollDirection: Axis.vertical,
@@ -685,6 +689,8 @@ class _CheckoutProductState extends State<CheckoutProduct> {
                             city: "-",
                             state: "-",
                             pinCode: "-",
+                            prodName: model.prodName,
+                            price: model.price,
                           ),
                         );
                       },

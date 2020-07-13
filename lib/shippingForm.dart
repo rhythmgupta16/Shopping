@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'shippingModel.dart';
+import 'editShippingModel.dart';
 
 class ShippingForm extends StatefulWidget {
   @override
@@ -12,20 +13,34 @@ class _ShippingFormState extends State<ShippingForm> {
   ShippingModel model = ShippingModel();
   @override
   Widget build(BuildContext context) {
+    final EditShippingModel eModel = ModalRoute.of(context).settings.arguments;
+
     final halfMediaWidth = MediaQuery.of(context).size.width / 2.0;
 
     return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+        title: Text(
+          "Shipping Details",
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+      ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
               Container(
+                padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
                 alignment: Alignment.topCenter,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 4),
                       alignment: Alignment.topCenter,
                       width: halfMediaWidth,
                       child: MyTextFormField(
@@ -103,7 +118,7 @@ class _ShippingFormState extends State<ShippingForm> {
                   icon: Icon(Icons.arrow_downward),
                   iconSize: 24,
                   elevation: 16,
-                  style: TextStyle(color: Colors.deepPurple),
+                  style: TextStyle(color: Colors.black),
                   underline: Container(
                     height: 2,
                     color: Colors.deepPurpleAccent,
@@ -160,30 +175,37 @@ class _ShippingFormState extends State<ShippingForm> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                child: RaisedButton(
-                  color: Colors.blueAccent,
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      Navigator.pushNamed(
-                        context,
-                        '/paymentPage',
-                        arguments: ShippingModel(
-                          firstName: model.firstName,
-                          lastName: model.lastName,
-                          address: model.address,
-                          city: model.city,
-                          state: model.state,
-                          pinCode: model.pinCode,
-                        ),
-                      );
-                    }
-                  },
-                  child: Text(
-                    'Update Details',
-                    style: TextStyle(
-                      color: Colors.white,
+                padding: const EdgeInsets.fromLTRB(30, 40, 30, 10),
+                child: SizedBox(
+                  height: 60,
+                  width: 250,
+                  child: RaisedButton(
+                    color: Colors.blueAccent,
+                    onPressed: () {
+                      if (_formKey.currentState.validate()) {
+                        _formKey.currentState.save();
+                        Navigator.pushNamed(
+                          context,
+                          '/paymentPage',
+                          arguments: ShippingModel(
+                            firstName: model.firstName,
+                            lastName: model.lastName,
+                            address: model.address,
+                            city: model.city,
+                            state: model.state,
+                            pinCode: model.pinCode,
+                            prodName: eModel.productName,
+                            price: eModel.productPrice,
+                          ),
+                        );
+                      }
+                    },
+                    child: Text(
+                      'Update Details',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                      ),
                     ),
                   ),
                 ),
@@ -212,7 +234,7 @@ class MyTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+      padding: EdgeInsets.fromLTRB(25, 10, 25, 20),
       child: TextFormField(
         decoration: InputDecoration(
           hintText: hintText,

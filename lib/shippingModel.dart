@@ -5,11 +5,16 @@ class ShippingModel {
   String city;
   String state;
   String pinCode;
-  ShippingModel(
-      {this.firstName,
-      this.lastName,
-      this.address,
-      this.city,
-      this.state,
-      this.pinCode});
+  String prodName;
+  String price;
+  ShippingModel({
+    this.firstName,
+    this.lastName,
+    this.address,
+    this.city,
+    this.state,
+    this.pinCode,
+    this.prodName,
+    this.price,
+  });
 }
